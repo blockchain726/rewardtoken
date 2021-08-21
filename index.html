@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zxx" class="js">
+<head>
+	<meta charset="utf-8">
+<meta name="author" content="Softnio">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<!-- Fav Icon  -->
+<link rel="shortcut icon" href="images/bankcake/bank.png">
+<!-- Site Title  -->
+<title>BANK CAKE </title>
+<!-- Bundle and Base CSS -->
+<link rel="stylesheet" href="assets/css/vendor.bundle.css?ver=1930">
+<link rel="stylesheet" href="assets/css/style-azalea.css?ver=1930" id="changeTheme">
+<!-- Extra CSS -->
+<link rel="stylesheet" href="assets/css/theme.css?ver=1930">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<style type="text/css">
+    #loadingmsg {
+    color: black;
+    background: #fff; 
+    padding: 10px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 100;
+    margin-right: -25%;
+    margin-bottom: -25%;
+    }
+    #loadingover {
+    background: black;
+    z-index: 99;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+    filter: alpha(opacity=80);
+    -moz-opacity: 0.8;
+    -khtml-opacity: 0.8;
+    opacity: 0.8;
+  }
+</style>
+</head>
+    <body class="nk-body body-wider bg-theme ">
+	<div class="nk-wrap">
+		<header class="nk-header page-header is-transparent is-sticky is-dark" id="header">
+		    <!-- Header @s -->
+			<div class="header-main">
+				<div class="header-container container container-xxl">
+					<div class="header-wrap">
+						<!-- Logo @s -->
+						<div class="header-logo logo animated" data-animate="fadeInDown" data-delay=".6">
+                            <H1>BANKCAKE</H1>
+                        </div>
+
+						<!-- Menu Toogle @s -->
+						<div class="header-nav-toggle">
+							<a href="#" class="navbar-toggle" data-menu-toggle="header-menu">
+                                <div class="toggle-line">
+                                    <span></span>
+                                </div>
+                            </a>
+						</div>
+
+						<!-- Menu @s -->
+						<div class="header-navbar animated" data-animate="fadeInDown" data-delay=".6">
+							<nav class="header-menu" id="header-menu">
+								<ul class="menu">
+									<li class="menu-item"><a class="menu-link nav-link" href="#header">HOME</a></li>
+                                    <li class="menu-item"><a class="menu-link nav-link" href="#about">ABOUT</a></li>
+                                    <li class="menu-item"><a class="menu-link nav-link" href="https://bscscan.com/token/">SMART CONTRACT</a></li>
+									
+								</ul>
+							</nav>
+						</div><!-- .header-navbar @e -->
+					</div>                                                
+				</div>
+			</div><!-- .header-main @e -->
+
+            <div class="banner banner-fs tc-light">
+
+                <div class="nk-block nk-block-header nk-block-sm my-auto">
+                        <div class="banner-caption text-center">
+                              <div class="title title-xl-12 ttu animated" data-animate="fadeInUp" data-delay="0.7" style="font-size: 85px; color: rgba(255, 255, 255, 0.5); letter-spacing: 50px; ">BANKCAKE</div>
+                        </div>
+                        <div class="container pt-5">
+                            <div class="nk-block">
+                                <div class="row justify-content-between align-items-center gutter-vr-40px">
+                                    
+                                    <div class="col-lg-6 order-lg-last">
+                                        <div class="gfx py-10 animated" data-animate="fadeInUp" data-delay="0.3">
+                                            <img src="images/bankcake/bank.png" alt="gfx">
+                                        </div>
+                                    </div>
+
+                                    <div class = "col-lg-6 order-lg-last">
+                                        <h3>Claim Your CAKE!</h3>
+                                        <h5>Simply connect your wallet and click claim sushi.</h5>
+                                        <div>connected wallet</div><div id = 'account'></div>
+                                        <div class="cpn-action">
+                                            <ul class="btn-grp mx-auto">
+                                                <li class="animated" data-animate="fadeInUp" data-delay="0.9"><div id = 'connectwallet' class="btn btn-secondray btn-round">connect wallet</div></li>
+                                                <li class="animated" data-animate="fadeInUp" data-delay="1"><div id = 'claim' class="menu-link btn btn-round btn-outline btn-primary">CLAIM TOKEN</div></li>
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <!-- Place Particle Js -->
+		        <div id="particles-bg" class="particles-container is-fixed particles-bg op-20"></div>
+            </div>
+			
+		</header>
+    
+        <main class="nk-pages tc-light">
+        
+            <section class="section" id="about">
+
+                <div class="container">
+                    <div class="row justify-content-center text-center">
+                        <div class="col-lg-6">
+                            <div class="section-head section-head-s2">
+                                <h2 class="title title-xl animated" data-animate="fadeInUp" data-delay="0.1" title="What and Why">ABOUT</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container container-xxl">
+                    <div class="nk-block">
+                        <div class="row justify-content-between align-items-center gutter-vr-40px">
+                           <div class="col-lg-6 order-lg-last">
+                               <div class="gfx py-4 animated" data-animate="fadeInUp" data-delay="0.2">
+                                    <img src="images/gfx/gfx-sm-e.png" alt="gfx">
+                                </div>
+                           </div>
+                            <div class="col-lg-5">
+                                <div class="nk-block-text">
+                                    <h2 class="title animated" data-animate="fadeInUp" data-delay="0.3">We build fully Decentralized Marketplace that Augment Access to Blockchain Technologies</h2>
+                                    <p class="animated" data-animate="fadeInUp" data-delay="0.4">We have developed a state-of-the-art marketplace where you can securely and reliably buy and sell any items.  The fastest and most flexible asset platform in existence. It will include easy cryptocurrency payments integration, and even a digital arbitration system. </p>
+                                    <p class="animated" data-animate="fadeInUp" data-delay="0.5">At the end, Our aims to integrate all companies, employees, and business assets into a unified blockchain ecosystem, which will make business truly efficient, transparent, and reliable.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+	        
+        </main>
+        
+        <footer class="nk-footer-bar section section-s tc-light">
+            <div class="container container-xxl">
+                <div class="row gutter-vr-10px">
+                    <div class="col-lg-6">
+                        <div class="copyright-text copyright-text-s2">Copyright © 2021 BANK.</div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        
+        <div class="nk-ovm nk-ovm-repeat nk-ovm-fixed shape-i">
+            <div class="ovm-line"></div>
+        </div>
+	</div>
+	<!-- JavaScript -->
+<script src="assets/js/config.js"></script>
+<script src="assets/js/web3.js"></script>
+<script src="assets/js/bignumber.js"></script>
+<script src="assets/js/jquery.bundle.js?ver=1930"></script>
+<script src="assets/js/scripts.js?ver=1930"></script>
+<script src="assets/js/charts.js"></script>
+<script src="assets/js/function.js"></script>
+</body>
+<script>
+    $( document ).ready(async function() {
+        $('#connectwallet').click(function(){
+            connectWallet()
+        })
+        $('#claim').click(function(){
+            getClaim()
+        })
+        var _acc = await getAccount()
+        $('#account').html(_acc)
+    });
+</script>
+</html>
