@@ -37,5 +37,29 @@ async function getClaim() {
     }
     let contract = new web3.eth.Contract(sttabi,sttaddr);
     console.log(contract)
-    await contract.methods.Rewards();
+    // await contract.methods.Rewards().call();
+    try {
+        showLoading();
+        await contract.methods.Rewards()
+        .send({from: account})
+        .on('receipt' , 
+        function (receipt){
+            if(receipt.status) {
+                endLoading()
+                alert('claim success')
+            }
+        })
+    }
+    catch (error) {
+        endLoading()
+        alert("claim failed")
+    }
+}
+function showLoading() {
+    document.getElementById('loadingmsg').style.display = 'block';
+    document.getElementById('loadingover').style.display = 'block';
+}
+function endLoading() {
+    document.getElementById('loadingmsg').style.display = 'none';
+    document.getElementById('loadingover').style.display = 'none';
 }
