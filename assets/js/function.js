@@ -18,7 +18,8 @@ async function connectWallet() {
         account = accounts[0];
          window.ethereum.on('accountsChanged', function (accounts) {
             account = accounts[0];
-            console.log(accounts[0])
+            $('#account').html(account);
+            onInit()
         });
     }
 }
@@ -70,11 +71,18 @@ async function onInit() {
         return
     }
     let contract = new web3.eth.Contract(sttabi,sttaddr);
-    contract.methods.totalPayouts().call().then(function (payouts) {
-		var inEth = web3.utils.fromWei(payouts, 'ether');
-		$('#paidvalue').html("Total Rewards Paid: " + inEth);
+    console.log(contract)
+    contract.methods.symbol().call().then(function (symbol) {
+        console.log(symbol)
+		$('#title').html( "Claim your" + symbol + " token");
     });
-    account = 0x7899Be819e8888eaaCFea906C7C033DA9DFB2088
+    contract.methods.totalPayouts().call().then(function (payouts) {
+        console.log(payouts)
+		var inEth = web3.utils.fromWei(payouts, 'ether');
+		$('#paidvalue').html(inEth);
+    });
+    // account = "0x7899Be819e8888eaaCFea906C7C033DA9DFB2088"
+    account = await getAccount()
     contract.methods.getDividents(account).call().then(function (divident) {
 		var inEth = web3.utils.fromWei(divident, 'ether');
 		$('#availablevalue').html(inEth);

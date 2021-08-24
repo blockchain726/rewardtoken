@@ -1,12 +1,38 @@
 body{
-    background-image: url('../images/bankcake/background.jpg') ;
+    /* background-image: url('../images/bankcake/background.jpg') ; */
     background-repeat: no-repeat; 
     background-size: cover;
+    background-color: black;
     align-items: center !important;
     align-content: center !important;
-    margin: auto;
+    padding: auto;
     vertical-align: middle;
 }
 .flexable{
     display:inline-flex;
+}
+.container{
+    color:blanchedalmond; 
+    margin: auto; 
+    width: 50%;
+    position: relative;
+    top: 20vh;
+}
+button{
+    font-size: 20px;
+    border-radius: 10px;
+    box-shadow:  5px 5px black;
+    cursor:pointer;
+    padding-left: 20px;
+    margin-left: 50px;
+}
+
+button:hover{
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    cursor: pointer;
+}
+#title{
+    font-size: 50px;
+    color: blanchedalmond;
 }
