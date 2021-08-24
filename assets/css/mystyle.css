@@ -1,0 +1,12 @@
+body{
+    background-image: url('../images/bankcake/background.jpg') ;
+    background-repeat: no-repeat; 
+    background-size: cover;
+    align-items: center !important;
+    align-content: center !important;
+    margin: auto;
+    vertical-align: middle;
+}
+.flexable{
+    display:inline-flex;
+}
