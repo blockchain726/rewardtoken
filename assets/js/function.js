@@ -16,6 +16,7 @@ async function connectWallet() {
         await window.ethereum.enable();
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
         account = accounts[0];
+        $('#account').html(account);
          window.ethereum.on('accountsChanged', function (accounts) {
             account = accounts[0];
             $('#account').html(account);
@@ -74,7 +75,7 @@ async function onInit() {
     console.log(contract)
     contract.methods.symbol().call().then(function (symbol) {
         console.log(symbol)
-		$('#title').html( "Claim your" + symbol + " token");
+		$('#title').html( "Claim your " + symbol + " token");
     });
     contract.methods.totalPayouts().call().then(function (payouts) {
         console.log(payouts)
@@ -88,3 +89,4 @@ async function onInit() {
 		$('#availablevalue').html(inEth);
     });
 }
+

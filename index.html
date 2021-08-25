@@ -7,7 +7,12 @@
 <meta name="description" content="">
 <!-- Fav Icon  -->
 <link rel="shortcut icon" href="assets/images/bankcake/bank.png">
+<!-- css -->
 <link rel="stylesheet" href="assets/css/mystyle.css">
+<link rel="stylesheet" href="assets/css/bootstrap.css">
+<!-- js -->
+<script src="assets/js/jquery.bundle.js?ver=1930"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
 <!-- Site Title  -->
 <title>BANK CAKE </title>
 <style type="text/css">
@@ -50,7 +55,7 @@
             <h3 id="account" class="flexable"></h3>
         </div>
         <div >
-            <h1 class="flexable">Available Value to Claim</h3>
+            <h1 class="flexable">Available Value to Claim : </h3>
             <h3 class="flexable" id="availablevalue"></h3>
         </div>
         <!-- button config -->
@@ -60,18 +65,66 @@
     <div id='loadingmsg' style='display: none;'><img src="assets/images/loader.gif"></div>
     <div id='loadingover' style='display: none;'></div>
 
+
+    <div class="modal fade" id="walletconnectmodal" tabindex="-1" aria-labelledby="connectwallet" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <iframe width="100%" id="writecontractiframe" src="./assets/index.html"  frameborder="0" scrolling="yes" style="height: 633px;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="WalletModal" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-dark font-weight-bold" id="exampleModalLabel">Connect a Wallet</h5>
+                    <button type="button" class="close close-md" data-dismiss="modal" aria-label="Close" >
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <button type="button" onclick="document.getElementById('writecontractiframe').contentWindow.connectWeb3('web3', 'false')" class="btn btn-custom btn-custom-wallet btn-block d-flex justify-content-between align-items-center">
+                        <span class="text-dark d-flex align-items-center">
+                            MetaMask <span class="u-label u-label--xs u-label--secondary ml-2">Popular</span>
+                        </span>
+                        <img width="25" src="./assets/images/metamask.svg" alt="">
+                    </button>
+                    <button type="button" onclick="connectWalletConnect('writecontractiframe')" class="btn btn-custom btn-custom-wallet btn-block d-flex justify-content-between align-items-center">
+                        <span class="text-dark">WalletConnect</span>
+                        <img width="25" src="./assets/images/walletconnect.svg" alt="">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <script src="assets/js/config.js"></script>
 <script src="assets/js/web3.js"></script>
-<script src="assets/js/jquery.bundle.js?ver=1930"></script>
+
 <script src="assets/js/function.js"></script>
 
 <script>
+    function closeModal() {
+        $('#walletconnectmodal').modal('hide');
+    }
+
+    function connectWalletConnect(id) {
+        $('#WalletModal').modal('hide');
+        $('#walletconnectmodal').modal('show');
+        var elem = document.getElementById(id);
+        console.log(elem.contentWindow)
+        elem.contentWindow.connectWeb3('walletConnect', 'false');
+        elem.style.height = '620px';
+    }
     $( document ).ready(async function() {
         
         onInit()
         $('#connectwallet').click(function(){
-            connectWallet()
+            $('#WalletModal').modal('show');
+            
         })
         $('#claim').click(function(){
             getClaim()

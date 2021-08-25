@@ -1,8 +1,8 @@
 body{
-    /* background-image: url('../images/bankcake/background.jpg') ; */
+    background-image: url('../images/bankcake/background.jpg') ;
     background-repeat: no-repeat; 
     background-size: cover;
-    background-color: black;
+    /* background-color: black; */
     align-items: center !important;
     align-content: center !important;
     padding: auto;
@@ -20,6 +20,8 @@ body{
 }
 button{
     font-size: 20px;
+    color: white;
+    background-color: yellowgreen;
     border-radius: 10px;
     box-shadow:  5px 5px black;
     cursor:pointer;

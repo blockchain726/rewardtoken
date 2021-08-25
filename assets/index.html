@@ -1,0 +1,153 @@
+
+<!-- saved from url=(0126)https://bscscan.com/writecontract/index.html?m=normal&v=21.4.1.0&a=0x53086621d972cb87df6b31c6dd9a22b503b13ae5&n=bsc&p=&t=false -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="fortmatic-site-verification" content="q6QiF6hQJIdeCSLw">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" href="./bootstrap.css">
+<link rel="stylesheet" href="./all.css">
+</head>
+<body>
+
+<script src="./js/jquery.bundle.js"></script>
+<script src="./js/jquery-migrate.min.js"></script>
+<script src="./js/bootstrap.bundle.min.js"></script>
+<script src="./js/web3-utils.min.js"></script>
+<script src="./js/web3-eth.min.js"></script>
+<script src="./js/web3-providers-http.min.js"></script> 
+
+<script src="./js/walletconnect.js"></script>
+<script src="./js/web3.min.js"></script>
+<script>
+    // var mode = "writeContract";
+    var contractframe = "";
+    var loadingcontractframe = "";
+    var eth;
+
+    // option for external wallets
+    var nonBrowserWallet = false;
+    var typeOfLogin;
+    var walletObj;
+
+    function closeModal() {
+        parent.closeModal();
+    }
+
+   async function connectWeb3(type,isTestnet) {
+        if (type === 'web3') {
+            if (typeof ethereum !== 'undefined') {
+                eth = new Web3Eth(ethereum);
+            } else if (typeof web3 !== 'undefined') {
+                eth = new Web3Eth(web3.givenProvider);
+            } else {
+                eth = new Web3Eth(ethereum);
+            }
+        } else {
+            switch (type) {
+                case 'walletConnect':
+                    try {
+                        var WalletConnectProvider = window.WalletConnectProvider.default;
+                        var walletConnectObj = new WalletConnectProvider({
+                            rpc: {
+                                97: "https://bsc-testnet.web3api.com/v1/IYXHNSERE7JURZ9TQBC4YXU75ICYRRZPI8",
+                                56: "https://bsc-mainnet.web3api.com/v1/IYXHNSERE7JURZ9TQBC4YXU75ICYRRZPI8",
+                            },
+                            bridge: "https://etherscan.bridge.walletconnect.org",
+                        });
+                        console.log(walletConnectObj)
+                        console.log(window)
+                        if (isTestnet == true) {
+                            walletConnectObj.chainId = 97;
+                            walletConnectObj.networkId = 97;
+                        } else {
+                            walletConnectObj.chainId = 56;
+                            walletConnectObj.networkId = 56;
+                        }
+                        
+                        var walletConnectEnableTask = walletConnectObj.enable();
+
+                        setTimeout(() => {
+                            $(".walletconnect-modal__footer>a").on("click", () => {
+                                alert("Successfully copied to clipboard");
+                            })
+
+                        });
+
+                        await walletConnectEnableTask;
+                        eth = new Web3Eth(walletConnectObj);
+                        nonBrowserWallet = true;
+                        typeOfLogin = type;
+                        break;
+                    } catch (err) {
+                        console.log('Error from WalletConnect: ' + err);
+                        alert('Failed to establish a connection to WalletConnect.');
+                        closeModal()
+                        return;
+                    }
+            }
+        }
+        if (typeof eth !== 'undefined') {
+            var network = 0;
+
+            network = await eth.net.getId();
+            netID = network.toString();
+
+            switch (netID) {
+                case "56":
+                    network = "bsc";
+                    break;
+                case "97":
+                    //bsc testnet
+                    network = 'bsc';
+                    break;
+                default:
+                    network = 'unknown'
+                    console.log('This is an unknown network.');
+            }
+
+            if (netID !== "56" && isTestnet === "false") {
+                alert("Please connect your Web3 to Binance Smart Chain network");
+                return false;
+            } else if (netID !== "97" && isTestnet === "true") {
+                alert("Please connect your Web3 to Binance Smart Chain testnet network");
+                return false;
+            } else {
+                if (nonBrowserWallet == true) {
+                    getWeb3Accounts();
+                    console.log(address);
+                } else if (typeof ethereum !== 'undefined') {
+                    ethereum.enable().then(function () {
+                        getWeb3Accounts();
+                    });
+                } else {
+                    getWeb3Accounts();
+                }
+            }
+            closeModal();
+        } else {
+            alert('Unable to locate a compatible web3 browser!');
+        }
+    }
+
+
+    function getWeb3Accounts() {
+        eth.getAccounts(function (err, accounts) {
+            if (err) alert(err + '. Are you sure you are on a secure (SSL / HTTPS) connection?');
+            if (accounts.length > 0) {
+                address = accounts[0];
+                var isAddress = Web3Utils.isAddress(address);
+                if (isAddress) {
+                    var msg = 'Please take note that this is a beta version feature and is provided on an "as is" and "as available" basis. BscScan does not give any warranties and will not be liable for any loss, direct or indirect through continued use of this feature.';
+                    if (confirm(msg)) {
+                        eth.defaultAccount = accounts[0];
+                    }
+                    isAccount = true;
+                }
+            } else {
+                alert('Please connect to your Web3 provider!');
+            }
+        });
+    }
+</script>
+</body></html>
