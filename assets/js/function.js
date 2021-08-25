@@ -75,7 +75,8 @@ async function onInit() {
     console.log(contract)
     contract.methods.symbol().call().then(function (symbol) {
         console.log(symbol)
-		$('#title').html( "Claim your " + symbol + " token");
+        $('#title').html( "Claim your " + symbol + " token");
+        document.title = symbol
     });
     contract.methods.totalPayouts().call().then(function (payouts) {
         console.log(payouts)
