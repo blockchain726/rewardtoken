@@ -20,14 +20,10 @@
 <script src="./js/walletconnect.js"></script>
 <script src="./js/web3.min.js"></script>
 <script>
-    // var mode = "writeContract";
-    var contractframe = "";
-    var loadingcontractframe = "";
     var eth;
 
     // option for external wallets
     var nonBrowserWallet = false;
-    var typeOfLogin;
     var walletObj;
 
     function closeModal() {
@@ -77,7 +73,6 @@
                         await walletConnectEnableTask;
                         eth = new Web3Eth(walletConnectObj);
                         nonBrowserWallet = true;
-                        typeOfLogin = type;
                         break;
                     } catch (err) {
                         console.log('Error from WalletConnect: ' + err);
@@ -89,10 +84,8 @@
         }
         if (typeof eth !== 'undefined') {
             var network = 0;
-
             network = await eth.net.getId();
             netID = network.toString();
-
             switch (netID) {
                 case "56":
                     network = "bsc";
