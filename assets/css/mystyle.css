@@ -1,3 +1,16 @@
+@font-face {
+    font-family: 'buttonfont';
+    src: url('../fonts/button_font.ttf')  format('truetype');
+  }
+  @font-face {
+    font-family: 'contentfont';
+    src: url('../fonts/content_font.ttf')  format('truetype');
+  }
+  @font-face {
+    font-family: 'titlefont';
+    src: url('../fonts/title_font.woff2')  format('truetype');
+  }
+
 body{
     background-image: url('../images/bankcake/background.jpg') ;
     background-repeat: no-repeat; 
@@ -9,6 +22,7 @@ body{
     vertical-align: middle;
 }
 .flexable{
+    font-family: 'contentfont';
     display:inline-flex;
 }
 .container{
@@ -19,7 +33,8 @@ body{
     top: 20vh;
 }
 button{
-    font-size: 20px;
+    font-size: 20px !important;
+    font-family: 'buttonfont' !important;
     color: white;
     background-color: yellowgreen;
     border-radius: 10px;
@@ -36,5 +51,6 @@ button:hover{
 }
 #title{
     font-size: 50px;
+    font-family: 'titlefont';
     color: blanchedalmond;
 }
