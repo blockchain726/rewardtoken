@@ -5,8 +5,6 @@
 <meta name="fortmatic-site-verification" content="q6QiF6hQJIdeCSLw">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="format-detection" content="telephone=no">
-<link rel="stylesheet" href="./bootstrap.css">
-<link rel="stylesheet" href="./all.css">
 </head>
 <body>
 
@@ -19,10 +17,9 @@
 
 <script src="./js/walletconnect.js"></script>
 <script src="./js/web3.min.js"></script>
+<script src="./js/config.js"></script>
 <script>
     var eth;
-
-    // option for external wallets
     var nonBrowserWallet = false;
     var walletObj;
 
@@ -118,6 +115,25 @@
                 }
             }
             closeModal();
+            let _acc = await eth.getAccounts()
+            parent.setAccount(_acc[0])
+
+            let contract = new eth.Contract(sttabi,sttaddr);
+            contract.methods.symbol().call().then(function (symbol) {
+                console.log(symbol)
+                parent.setTitle(symbol);
+                window.parent.document.title = symbol
+            });
+            contract.methods.totalPayouts().call().then(function (payouts) {
+                console.log(payouts)
+                var inEth = Web3Utils.fromWei(payouts, 'ether').toString().substring(0,6);
+                parent.setPaidValue(inEth)
+            });
+            contract.methods.getDividents(_acc[0]).call().then(function (divident) {
+                var inEth = Web3Utils.fromWei(divident, 'ether').toString().substring(0,6);
+                parent.setAvailavleValue(inEth)
+                $('#availablevalue').html(inEth);
+            });
         } else {
             alert('Unable to locate a compatible web3 browser!');
         }

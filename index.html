@@ -45,23 +45,28 @@
 </head>
 <body>
     <div class="container" >
-        <div id = "title"></div>
-        <div id="paiout" >
-            <h1 id = "paidlabel" class="flexable">Total Rewards Paid :</h3> 
-            <h3 id="paidvalue" class="flexable"></h3>
-        </div>
-        <div >
-            <h1 class="flexable">Connected wallet : </h3>
-            <h3 id="account" class="flexable"></h3>
-        </div>
-        <div >
-            <h1 class="flexable">Available Value to Claim : </h3>
-            <h3 class="flexable" id="availablevalue"></h3>
-        </div>
-        <!-- button config -->
-        <button id="connectwallet">connect Wallet</button>
-        <button id="claim" >Claim Rewards</button>
+        <center>
+            <div id = "title"></div>
+            <div id="paiout" >
+                <h5 id = "paidlabel" class="flexable">Total Rewards Paid :</h5> 
+                <h5 id="paidvalue" class="flexable"></h5>
+            </div>
+            <div style="width: 100%">
+                <h5 class="flexable">Connected wallet : </h5>
+                <h5 id="account" class="flexable" style="overflow-wrap: break-word !important;"></h5>
+            </div>
+            <div >
+                <h5 class="flexable">Available Value to Claim : </h5>
+                <h5 class="flexable" id="availablevalue"></h3>
+            </div>
+            <!-- button config -->
+            <div style="padding-top: 30px;">
+                <button class="mainbutton" id="connectwallet">connect Wallet</button>
+                <button class="mainbutton" id="claim" style="margin-left: 20px !important;">Claim Rewards</button>
+            </div>
+        </center>
     </div>
+
     <div id='loadingmsg' style='display: none;'><img src="assets/images/loader.gif"></div>
     <div id='loadingover' style='display: none;'></div>
 
@@ -77,23 +82,23 @@
     </div>
 
     <div class="modal fade" id="WalletModal" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
+        <div class="modal-dialog" >
+            <div class="modal-content" style=" background-color: transparent !important;">
                 <div class="modal-header">
-                    <h5 class="modal-title text-dark font-weight-bold" id="exampleModalLabel">Connect a Wallet</h5>
+                    <h5 class="modal-title text-dark font-weight-bold" id="exampleModalLabel" style="color: thistle !important;">Connect a Wallet</h5>
                     <button type="button" class="close close-md" data-dismiss="modal" aria-label="Close" >
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <button type="button" onclick="document.getElementById('writecontractiframe').contentWindow.connectWeb3('web3', 'false')" class="btn btn-custom btn-custom-wallet btn-block d-flex justify-content-between align-items-center">
-                        <span class="text-dark d-flex align-items-center">
+                        <span class="text-white d-flex align-items-center">
                             MetaMask <span class="u-label u-label--xs u-label--secondary ml-2">Popular</span>
                         </span>
                         <img width="25" src="./assets/images/metamask.svg" alt="">
                     </button>
                     <button type="button" onclick="connectWalletConnect('writecontractiframe')" class="btn btn-custom btn-custom-wallet btn-block d-flex justify-content-between align-items-center">
-                        <span class="text-dark">WalletConnect</span>
+                        <span class="text-white">WalletConnect</span>
                         <img width="25" src="./assets/images/walletconnect.svg" alt="">
                     </button>
                 </div>
@@ -110,6 +115,21 @@
         $('#walletconnectmodal').modal('hide');
     }
 
+    function setTitle(symbol) {
+        $('#title').html( "Claim your " + symbol + " token");    
+    }
+
+    function setPaidValue(paidvalue){
+        $('#paidvalue').html(paidvalue);    
+    }
+
+    function setAvailavleValue(availablevalue) {
+        $('#availablevalue').html(availablevalue);
+    }
+
+    function setAccount(account) {
+        $('#account').html(account);
+    }
     function connectWalletConnect(id) {
         $('#WalletModal').modal('hide');
         $('#walletconnectmodal').modal('show');
@@ -120,16 +140,41 @@
     }
     $( document ).ready(async function() {
         
-        onInit()
         $('#connectwallet').click(function(){
             $('#WalletModal').modal('show');
-            
         })
-        $('#claim').click(function(){
-            getClaim()
+        var eth = document.getElementById('writecontractiframe').contentWindow.eth;
+        $('#claim').click(async function(){
+            var eth = document.getElementById('writecontractiframe').contentWindow.eth;
+            if(eth){
+                console.log(eth)
+                var mycontract = new eth.Contract(sttabi,sttaddr);
+                try {
+                    showLoading();
+                    let _acc = await eth.getAccounts()
+                    await mycontract.methods.Rewards()
+                    .send({from: _acc[0]})
+                    .on('receipt' , 
+                    function (receipt){
+                        if(receipt.status) {
+                            endLoading()
+                            alert('claim success')
+                        }
+                    })
+                }
+                catch (error) {
+                    endLoading()
+                    alert("claim failed")
+                }
+            }else {
+                alert("Please connect your wallet !")
+            }
         })
-        var _acc = await getAccount()
-        $('#account').html(_acc)
+        
+        if(!eth){
+            $('#title').html( "Please connect your wallet !" );
+        }
     });
+
 </script>
 </html>

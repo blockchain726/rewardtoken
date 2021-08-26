@@ -12,10 +12,10 @@
   }
 
 body{
-    background-image: url('../images/bankcake/background.jpg') ;
+    /* background-image: url('../images/bankcake/background.jpg') ; */
     background-repeat: no-repeat; 
-    background-size: cover;
-    /* background-color: black; */
+    background-size:100% 100vh;
+    background-color: rgba(0, 0, 0, 0.8) !important;
     align-items: center !important;
     align-content: center !important;
     padding: auto;
@@ -30,27 +30,27 @@ body{
     margin: auto; 
     width: 50%;
     position: relative;
-    top: 20vh;
+    top: 25vh;
 }
-button{
-    font-size: 20px !important;
+.mainbutton{
+    font-size: 12px !important;
     font-family: 'buttonfont' !important;
     color: white;
-    background-color: yellowgreen;
-    border-radius: 10px;
+    background-color: transparent;
+    border-radius: 15px !important;
     box-shadow:  5px 5px black;
     cursor:pointer;
-    padding-left: 20px;
-    margin-left: 50px;
+    margin-left: 0px !important;
 }
 
-button:hover{
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 10px;
+.mainbutton:hover{
+    background-color: rgba(255, 255, 255,0.51) !important;
+    border-radius: 15px;
     cursor: pointer;
 }
 #title{
-    font-size: 50px;
+    font-size: 30px;
     font-family: 'titlefont';
     color: blanchedalmond;
+    margin-bottom: 25px;
 }
