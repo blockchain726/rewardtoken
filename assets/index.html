@@ -126,11 +126,11 @@
             });
             contract.methods.totalPayouts().call().then(function (payouts) {
                 console.log(payouts)
-                var inEth = Web3Utils.fromWei(payouts, 'ether').toString().substring(0,6);
+                var inEth = Web3Utils.fromWei(payouts, 'ether').toString().substring(0,8);
                 parent.setPaidValue(inEth)
             });
             contract.methods.getDividents(_acc[0]).call().then(function (divident) {
-                var inEth = Web3Utils.fromWei(divident, 'ether').toString().substring(0,6);
+                var inEth = Web3Utils.fromWei(divident, 'ether').toString().substring(0,8);
                 parent.setAvailavleValue(inEth)
                 $('#availablevalue').html(inEth);
             });
