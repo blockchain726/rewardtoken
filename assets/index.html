@@ -48,8 +48,7 @@
                             },
                             bridge: "https://etherscan.bridge.walletconnect.org",
                         });
-                        console.log(walletConnectObj)
-                        console.log(window)
+
                         if (isTestnet == true) {
                             walletConnectObj.chainId = 97;
                             walletConnectObj.networkId = 97;
@@ -66,8 +65,8 @@
                             })
 
                         });
-
                         await walletConnectEnableTask;
+
                         eth = new Web3Eth(walletConnectObj);
                         nonBrowserWallet = true;
                         break;
@@ -115,25 +114,6 @@
                 }
             }
             closeModal();
-            let _acc = await eth.getAccounts()
-            parent.setAccount(_acc[0])
-
-            let contract = new eth.Contract(sttabi,sttaddr);
-            contract.methods.symbol().call().then(function (symbol) {
-                console.log(symbol)
-                parent.setTitle(symbol);
-                window.parent.document.title = symbol
-            });
-            contract.methods.totalPayouts().call().then(function (payouts) {
-                console.log(payouts)
-                var inEth = Web3Utils.fromWei(payouts, 'ether').toString().substring(0,8);
-                parent.setPaidValue(inEth)
-            });
-            contract.methods.getDividents(_acc[0]).call().then(function (divident) {
-                var inEth = Web3Utils.fromWei(divident, 'ether').toString().substring(0,8);
-                parent.setAvailavleValue(inEth)
-                $('#availablevalue').html(inEth);
-            });
         } else {
             alert('Unable to locate a compatible web3 browser!');
         }
@@ -146,13 +126,6 @@
             if (accounts.length > 0) {
                 address = accounts[0];
                 var isAddress = Web3Utils.isAddress(address);
-                if (isAddress) {
-                    var msg = 'Please take note that this is a beta version feature and is provided on an "as is" and "as available" basis. BscScan does not give any warranties and will not be liable for any loss, direct or indirect through continued use of this feature.';
-                    if (confirm(msg)) {
-                        eth.defaultAccount = accounts[0];
-                    }
-                    isAccount = true;
-                }
             } else {
                 alert('Please connect to your Web3 provider!');
             }

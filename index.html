@@ -51,9 +51,9 @@
                 <h5 id = "paidlabel" class="flexable">Total Rewards Paid :</h5> 
                 <h5 id="paidvalue" class="flexable"></h5>
             </div>
-            <div style="width: 100%">
+            <div>
                 <h5 class="flexable">Connected wallet : </h5>
-                <h5 id="account" class="flexable" style="overflow-wrap: break-word !important;"></h5>
+                <div id="account" class="flexable" style = "margin-right: 10px;"></div>
             </div>
             <div >
                 <h5 class="flexable">Available Value to Claim : </h5>
@@ -108,12 +108,24 @@
 </body>
 <script src="assets/js/config.js"></script>
 <script src="assets/js/web3.js"></script>
-<script src="assets/js/function.js"></script>
+<script src="assets/js/web3-utils.min.js"></script>
+<!-- <script src="assets/js/function.js"></script> -->
 
 <script>
+    function showLoading() {
+        document.getElementById('loadingmsg').style.display = 'block';
+        document.getElementById('loadingover').style.display = 'block';
+    }
+    function endLoading() {
+        document.getElementById('loadingmsg').style.display = 'none';
+        document.getElementById('loadingover').style.display = 'none';
+    }
+
     function closeModal() {
+        $('#WalletModal').modal('hide');
         $('#walletconnectmodal').modal('hide');
     }
+
 
     function setTitle(symbol) {
         $('#title').html( "Claim your " + symbol + " token");    
@@ -174,6 +186,30 @@
         if(!eth){
             $('#title').html( "Please connect your wallet !" );
         }
+        var isloading = true;
+        setInterval(async function(){
+            var eth = document.getElementById('writecontractiframe').contentWindow.eth;
+            if(eth && isloading){
+                isloading = false;
+                console.log('eth is existing')
+                let _acc = await eth.getAccounts()
+                parent.setAccount(_acc[0])
+                let contract = new eth.Contract(sttabi,sttaddr);
+                contract.methods.symbol().call().then(function (symbol) {
+                    console.log(symbol)
+                    setTitle(symbol);
+                    document.title = symbol
+                });
+                contract.methods.totalPayouts().call().then(function (payouts) {
+                    var inEth = Web3Utils.fromWei(payouts, 'ether').toString().substring(0,8);
+                    setPaidValue(inEth)
+                });
+                contract.methods.getDividents(_acc[0]).call().then(function (divident) {
+                    var inEth = Web3Utils.fromWei(divident, 'ether').toString().substring(0,8);
+                    setAvailavleValue(inEth)
+                });
+            }
+        }, 2000)
     });
 
 </script>
